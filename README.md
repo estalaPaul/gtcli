@@ -1,6 +1,7 @@
 # GTCLI
 
 ![GTCLI Logo](./logo.png)
+
 Very basic command line interface for Google Tasks. Allows you to see, add, rename and delTete your Tasks Lists; as well as see, add, update, complete and delete your Tasks.
 
 ## Table of contents
