@@ -175,6 +175,7 @@ def clearCompletedTasks(taskList):
         print("No task list with that title was found.")
     else: 
         service.tasks().clear(tasklist=taskListId).execute()
+        print("Completed tasks cleared from " + taskList)
 
 def fetchTaskStatus(taskListId, taskId):
     task = service.tasks().get(tasklist=taskListId, task=taskId).execute()
