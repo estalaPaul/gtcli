@@ -130,9 +130,9 @@ def updateTask(taskList, newTitle, newNotes):
             if chosenTask in tasksIds:
                 body = {}
                 if newTitle == "":
-                    body = {"notes": newNotes}
+                    body = {"notes": newNotes, "id": tasksIds[chosenTask]}
                 elif newNotes == "":
-                    body = {"title": newTitle}
+                    body = {"title": newTitle, "id": tasksIds[chosenTask]}
                 else:
                     body = {"title": newTitle, "notes": newNotes, "id": tasksIds[chosenTask]}
                 service.tasks().update(tasklist=taskListId, task=tasksIds[chosenTask], body=body).execute()
@@ -140,6 +140,45 @@ def updateTask(taskList, newTitle, newNotes):
             else:
                 print("Pick a number from the list.")
                 updateTask(taskList, newTitle, newNotes)
+
+def toggleTask(taskList):
+    taskListId = getTaskListId(taskList)
+    if taskListId == "":
+        print("No task list with that title was found.")
+    else:
+        tasks = fetchTasks(taskListId)
+        if not tasks:
+            print("No tasks were found.")
+        else:
+            print("What task do you want to toggle?")
+            tasksIds = printTaskList(tasks)
+            chosenTask = input()
+            if chosenTask in tasksIds:
+                status = ""
+                printStatus = ""
+                if fetchTaskStatus(taskListId, tasksIds[chosenTask]) == "completed":
+                    status = "needsAction"
+                    printStatus = "marked as Get 'er done"
+                else:
+                    status = "completed"
+                    printStatus = "marked as dunzo"
+                body = {"status": status, "id": tasksIds[chosenTask]}
+                service.tasks().update(tasklist=taskListId, task=tasksIds[chosenTask], body=body).execute()
+                print("Task was " + printStatus)
+            else:
+                print("Pick a number from the list.")
+                toggleTask(taskList)
+
+def clearCompletedTasks(taskList):
+    taskListId = getTaskListId(taskList)
+    if taskListId == "":
+        print("No task list with that title was found.")
+    else: 
+        service.tasks().clear(tasklist=taskListId).execute()
+
+def fetchTaskStatus(taskListId, taskId):
+    task = service.tasks().get(tasklist=taskListId, task=taskId).execute()
+    return task['status']
 
 def printTaskList(tasks):
     tasksIds = {}
