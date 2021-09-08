@@ -24,7 +24,7 @@ After obtaining OAuth 2.0 credentials from the Google API Console, you must down
 After obtaining that file and storing it in a safe directory, you must export a enviroment variable pointing to that directory, using the following command:
 
 ```
-export GTCLI_RESOURCES_DIR="/path/to/safe/directory"
+export GTCLI_RESOURCES_DIR="/path/to/safe/directory/"
 ```
 
 Then lastly, we can clone this repository and run the gtcli.py file to get started. 
@@ -42,13 +42,13 @@ Using the script is very simple. You just run the gtcli.py file with the object 
 ### Add a Task 
 
 ```
-./gtcli t -a [TASKLIST] [TITLE] optional -n [NOTES]
+./gtcli.py t -a [TASKLIST] [TITLE] optional -n [NOTES]
 ```
 
 For further documentation use --help. 
 
 ```
-./gtcli --help
+./gtcli.py --help
 ```
 
 ## Disclaimer
