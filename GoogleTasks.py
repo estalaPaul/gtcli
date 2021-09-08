@@ -68,7 +68,7 @@ def listTasks(taskList):
         if not tasks:
             print('No tasks found.')
         else:
-            print('Tasks:')
+            print("Tasks:\n")
             i = 1
             for task in tasks:
                 print(str(i) + ": " + task['title'])
@@ -82,6 +82,8 @@ def listTasks(taskList):
                     print("     Description: " + task['notes'])
                 if 'due' in task:
                     print("     Due: " + task['due'])
+                if i < len(tasks):
+                    print("\n")
                 i = i + 1
 
 def addTask(taskList, title, notes):
